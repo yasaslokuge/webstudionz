@@ -911,62 +911,50 @@
         </div>
     </section>
 
-    <!-- Contact Form -->
-    <section id="contact">
-    <h2 class="section-title">Let's Build Your Website</h2>
-  
-    <form 
-        action="https://formsubmit.co/yasaslokuge1438@gmail.com" 
-        method="POST" 
-        class="contact-form" 
-        id="contactForm"
-    >
-        <!-- Hidden field for FormSubmit's required anti-spam honeypot -->
-        <input type="hidden" name="_honeypot" value="true">
-
-        <!-- Optional: Hidden field to redirect users to a "Thank You" page after submission -->
-        <!-- <input type="hidden" name="_next" value="https://yourdomain.co/thankyou.html"> -->
-
-        <div class="form-group">
-            <label for="name">Your Name *</label>
-            <input type="text" id="name" name="name" required>
-        </div>
-        <div class="form-group">
-            <label for="email">Email Address *</label>
-            <input type="email" id="email" name="email" required>
-        </div>
-        <div class="form-group">
-            <label for="phone">Phone Number</label>
-            <input type="tel" id="phone" name="phone">
-        </div>
-        <div class="form-group">
-            <label for="websiteType">What type of website do you need? *</label>
-            <select id="websiteType" name="Website Type" required>
-                <option value="">Select a type</option>
-                <option value="E-Commerce Store">E-Commerce Store</option>
-                <option value="Portfolio Website">Portfolio Website</option>
-                <option value="Business Website">Business Website</option>
-                <option value="Blog/Magazine">Blog/Magazine</option>
-                <option value="Landing Page">Landing Page</option>
-                <option value="Custom Solution">Custom Solution</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label for="budget">Budget Range</label>
-            <select id="budget" name="Budget Range">
-                <option value="">Select budget</option>
-                <option value="Under $500">Under $500</option>
-                <option value="$500 - $1000">$500 - $1000</option>
-                <option value="$1000 - $2500">$1000 - $2500</option>
-                <option value="Over $2000">Over $2000</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label for="message">Tell us about your project *</label>
-            <textarea id="message" name="Project Details" required placeholder="Describe your vision, goals, and any specific features you need..."></textarea>
-        </div>
-        <button type="submit" class="submit-btn">Send Message</button>
-    </form>
+       <!-- Optional: Hidden field to redirect users to a "Thank You" page after submission -->
+    <!-- You can uncomment this and set a URL after confirming your email address. -->
+    <!-- <input type="hidden" name="_next" value="https://yourdomain.co/thankyou.html"> -->
+<section>
+    <div class="form-group">
+        <label for="name" class="block text-sm font-medium text-gray-700">Your Name *</label>
+        <input type="text" id="name" name="name" required class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500">
+    </div>
+    <div class="form-group">
+        <label for="email" class="block text-sm font-medium text-gray-700">Email Address *</label>
+        <input type="email" id="email" name="email" required class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500">
+    </div>
+    <div class="form-group">
+        <label for="phone" class="block text-sm font-medium text-gray-700">Phone Number</label>
+        <input type="tel" id="phone" name="phone" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500">
+    </div>
+    <div class="form-group">
+        <label for="websiteType" class="block text-sm font-medium text-gray-700">What type of website do you need? *</label>
+        <select id="websiteType" name="Website Type" required class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 bg-white">
+            <option value="">Select a type</option>
+            <option value="E-Commerce Store">E-Commerce Store</option>
+            <option value="Portfolio Website">Portfolio Website</option>
+            <option value="Business Website">Business Website</option>
+            <option value="Blog/Magazine">Blog/Magazine</option>
+            <option value="Landing Page">Landing Page</option>
+            <option value="Custom Solution">Custom Solution</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="budget" class="block text-sm font-medium text-gray-700">Budget Range</label>
+        <select id="budget" name="Budget Range" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 bg-white">
+            <option value="">Select budget</option>
+            <option value="Under $500">Under $500</option>
+            <option value="$500 - $1000">$500 - $1000</option>
+            <option value="$1000 - $2500">$1000 - $2500</option>
+            <option value="Over $2000">Over $2000</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="message" class="block text-sm font-medium text-gray-700">Tell us about your project *</label>
+        <textarea id="message" name="Project Details" required placeholder="Describe your vision, goals, and any specific features you need..." rows="4" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500"></textarea>
+    </div>
+    <button type="submit" class="submit-btn w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-4 rounded-lg shadow-lg transition duration-200 transform hover:scale-[1.01] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">Send Message</button>
+</form>
 </section>
 
     <!-- Footer -->
@@ -1228,3 +1216,4 @@ ${data.message}
 </body>
 
 </html>
+
