@@ -1,0 +1,1218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Website Design Studio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow-x: hidden;
+            background: #ffffff;
+        }
+
+        /* Animated Background */
+        #bgCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        /* Navbar */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: #2c3e50;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #2c3e50;
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .burger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+        }
+
+        .burger div {
+            width: 25px;
+            height: 3px;
+            background: #333;
+            transition: all 0.3s;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 60px;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero-content p {
+            font-size: 1.3rem;
+            color: #666;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        .cta-button {
+            padding: 1rem 3rem;
+            font-size: 1.1rem;
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            animation: fadeInUp 1s ease 0.4s both;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(44, 62, 80, 0.4);
+        }
+
+        /* Section Styling */
+        section {
+            padding: 5rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #333;
+        }
+
+        /* Why Website Section */
+        .why-website {
+            background: linear-gradient(135deg, rgba(44, 62, 80, 0.05) 0%, rgba(52, 73, 94, 0.05) 100%);
+            padding: 4rem 5%;
+            border-radius: 20px;
+            margin: 2rem auto;
+        }
+
+        .why-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .why-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .why-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        .why-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .why-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.8rem;
+            color: #2c3e50;
+        }
+
+        .why-card p {
+            color: #666;
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        /* Features Section */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+            margin-top: 3rem;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.1);
+            border-left: 4px solid #2c3e50;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateX(5px);
+            box-shadow: 0 8px 35px rgba(0,0,0,0.15);
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: white;
+        }
+
+        .feature-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            color: #2c3e50;
+        }
+
+        .feature-card p {
+            color: #666;
+            line-height: 1.7;
+            margin-bottom: 1rem;
+        }
+
+        .feature-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .feature-list li {
+            padding: 0.5rem 0;
+            color: #555;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .feature-list li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #2c3e50;
+            font-weight: bold;
+        }
+
+        /* Mission & Vision */
+        .mission-vision {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+        }
+
+        .card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: #2c3e50;
+        }
+
+        .card p {
+            color: #666;
+            line-height: 1.8;
+        }
+
+        /* Portfolio Carousel */
+        .carousel-container {
+            position: relative;
+            margin: 3rem 0;
+        }
+
+        .carousel {
+            display: flex;
+            gap: 2rem;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            padding: 2rem 0;
+            scrollbar-width: none;
+        }
+
+        .carousel::-webkit-scrollbar {
+            display: none;
+        }
+
+        .carousel-item {
+            min-width: 300px;
+            height: 400px;
+            background: #f5f5f5;
+            border-radius: 20px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+        }
+
+        .carousel-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 50px rgba(0,0,0,0.2);
+        }
+
+        .carousel-item img {
+            width: 100%;
+            height: 70%;
+            object-fit: cover;
+        }
+
+        .carousel-info {
+            padding: 1.5rem;
+            background: white;
+        }
+
+        .carousel-info h4 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        .carousel-info p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .carousel-nav {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .carousel-nav button {
+            padding: 0.8rem 2rem;
+            background: #2c3e50;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .carousel-nav button:hover {
+            background: #34495e;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s;
+        }
+
+        .modal-content {
+            max-width: 90%;
+            max-height: 90%;
+            position: relative;
+            animation: zoomIn 0.3s;
+        }
+
+        .modal-content img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            font-size: 3rem;
+            color: white;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .modal-close:hover {
+            color: #2c3e50;
+        }
+
+        /* Contact Form */
+        .contact-form {
+            max-width: 700px;
+            margin: 3rem auto;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #333;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #2c3e50;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 3rem 5%;
+            text-align: center;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: white;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: background 0.3s;
+        }
+
+        .social-links a:hover {
+            background: rgba(255,255,255,0.4);
+        }
+
+        .copyright {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.2);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes zoomIn {
+            from {
+                transform: scale(0.8);
+            }
+            to {
+                transform: scale(1);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                right: -100%;
+                top: 70px;
+                flex-direction: column;
+                background: rgba(255,255,255,0.98);
+                width: 100%;
+                padding: 2rem;
+                transition: right 0.3s;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .burger {
+                display: flex;
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-content p {
+                font-size: 1.1rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .carousel-item {
+                min-width: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <canvas id="bgCanvas"></canvas>
+
+    <!-- Navbar -->
+    <nav>
+        <div class="logo">WebStudio NZ</div>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#mission">Mission</a></li>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#portfolio">Portfolio</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <div class="burger">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>Transform Your Vision Into Reality</h1>
+            <p>Custom websites tailored to your unique needs. Let's build something extraordinary together.</p>
+            <button class="cta-button" onclick="document.getElementById('contact').scrollIntoView({behavior: 'smooth'})">
+                Get Started
+            </button>
+        </div>
+    </section>
+
+    <!-- Why You Need a Website -->
+    <section class="why-website">
+        <h2 class="section-title">Why Your Business Needs a Website</h2>
+        <div class="why-grid">
+            <div class="why-card">
+                <div class="why-icon">🌐</div>
+                <h3>24/7 Online Presence</h3>
+                <p>Your website works around the clock, providing information to customers even while you sleep. Be accessible anytime, anywhere.</p>
+            </div>
+            <div class="why-card">
+                <div class="why-icon">🚀</div>
+                <h3>Credibility & Trust</h3>
+                <p>81% of consumers research online before making a purchase. A professional website establishes legitimacy and builds trust.</p>
+            </div>
+            <div class="why-card">
+                <div class="why-icon">💼</div>
+                <h3>Reach More Customers</h3>
+                <p>Expand beyond your local area. A website gives you access to a global audience and unlimited growth potential.</p>
+            </div>
+            <div class="why-card">
+                <div class="why-icon">💰</div>
+                <h3>Cost-Effective Marketing</h3>
+                <p>Compared to traditional advertising, a website provides better ROI and allows targeted marketing at a fraction of the cost.</p>
+            </div>
+            <div class="why-card">
+                <div class="why-icon">📊</div>
+                <h3>Track Performance</h3>
+                <p>Understand your audience with analytics. Make data-driven decisions to improve your business and marketing strategies.</p>
+            </div>
+            <div class="why-card">
+                <div class="why-icon">🎯</div>
+                <h3>Competitive Edge</h3>
+                <p>Stand out from competitors. 28% of small businesses still don't have a website - be ahead of the curve.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mission & Vision -->
+    <section id="mission">
+        <h2 class="section-title">Our Purpose</h2>
+        <div class="mission-vision">
+            <div class="card">
+                <h3>Our Mission</h3>
+                <p>To empower businesses and individuals with stunning, functional websites that drive results. We believe every brand deserves a digital presence that reflects their uniqueness and connects with their audience in meaningful ways.</p>
+            </div>
+            <div class="card">
+                <h3>Our Vision</h3>
+                <p>To be the leading force in innovative web design, setting new standards for creativity, functionality, and user experience. We envision a digital landscape where every website tells a compelling story and delivers exceptional value.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Carousel -->
+    <section id="portfolio">
+        <h2 class="section-title">Website Types We Create</h2>
+        <div class="carousel-container">
+            <div class="carousel" id="carousel">
+                <div class="carousel-item" data-type="ecommerce">
+                    <svg width="100%" height="70%" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="100%" height="100%" fill="#f093fb"/>
+                        <rect x="10%" y="15%" width="80%" height="70%" fill="white" rx="10"/>
+                        <circle cx="30%" cy="40%" r="15%" fill="#667eea"/>
+                        <rect x="55%" y="30%" width="30%" height="5%" fill="#ddd" rx="2"/>
+                        <rect x="55%" y="40%" width="25%" height="5%" fill="#ddd" rx="2"/>
+                        <rect x="55%" y="50%" width="20%" height="8%" fill="#667eea" rx="4"/>
+                        <text x="50%" y="90%" text-anchor="middle" fill="white" font-size="24" font-weight="bold">E-Commerce</text>
+                    </svg>
+                    <div class="carousel-info">
+                        <h4>E-Commerce Store</h4>
+                        <p>Full-featured online stores with payment integration, inventory management, and shopping cart functionality.</p>
+                    </div>
+                </div>
+                <div class="carousel-item" data-type="portfolio">
+                    <svg width="100%" height="70%" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="100%" height="100%" fill="#4facfe"/>
+                        <rect x="10%" y="15%" width="35%" height="25%" fill="white" rx="5"/>
+                        <rect x="55%" y="15%" width="35%" height="25%" fill="white" rx="5"/>
+                        <rect x="10%" y="45%" width="35%" height="25%" fill="white" rx="5"/>
+                        <rect x="55%" y="45%" width="35%" height="25%" fill="white" rx="5"/>
+                        <text x="50%" y="90%" text-anchor="middle" fill="white" font-size="24" font-weight="bold">Portfolio</text>
+                    </svg>
+                    <div class="carousel-info">
+                        <h4>Portfolio Website</h4>
+                        <p>Showcase your work beautifully with galleries, case studies, and testimonials that impress clients.</p>
+                    </div>
+                </div>
+                <div class="carousel-item" data-type="business">
+                    <svg width="100%" height="70%" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="100%" height="100%" fill="#43e97b"/>
+                        <rect x="15%" y="20%" width="70%" height="60%" fill="white" rx="10"/>
+                        <circle cx="50%" cy="35%" r="8%" fill="#667eea"/>
+                        <rect x="25%" y="50%" width="50%" height="4%" fill="#ddd" rx="2"/>
+                        <rect x="30%" y="58%" width="40%" height="4%" fill="#ddd" rx="2"/>
+                        <rect x="35%" y="66%" width="30%" height="6%" fill="#43e97b" rx="3"/>
+                        <text x="50%" y="90%" text-anchor="middle" fill="white" font-size="24" font-weight="bold">Business</text>
+                    </svg>
+                    <div class="carousel-info">
+                        <h4>Business Website</h4>
+                        <p>Professional corporate sites with service pages, team profiles, and contact forms to grow your business.</p>
+                    </div>
+                </div>
+                <div class="carousel-item" data-type="blog">
+                    <svg width="100%" height="70%" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="100%" height="100%" fill="#fa709a"/>
+                        <rect x="10%" y="15%" width="80%" height="70%" fill="white" rx="10"/>
+                        <rect x="15%" y="22%" width="70%" height="8%" fill="#667eea" rx="2"/>
+                        <rect x="15%" y="35%" width="70%" height="3%" fill="#ddd" rx="1"/>
+                        <rect x="15%" y="40%" width="65%" height="3%" fill="#ddd" rx="1"/>
+                        <rect x="15%" y="45%" width="60%" height="3%" fill="#ddd" rx="1"/>
+                        <rect x="15%" y="55%" width="70%" height="3%" fill="#ddd" rx="1"/>
+                        <rect x="15%" y="60%" width="65%" height="3%" fill="#ddd" rx="1"/>
+                        <text x="50%" y="90%" text-anchor="middle" fill="white" font-size="24" font-weight="bold">Blog/Magazine</text>
+                    </svg>
+                    <div class="carousel-info">
+                        <h4>Blog & Magazine</h4>
+                        <p>Content-rich platforms with category systems, author pages, and social sharing for content creators.</p>
+                    </div>
+                </div>
+                <div class="carousel-item" data-type="landing">
+                    <svg width="100%" height="70%" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="100%" height="100%" fill="#feca57"/>
+                        <circle cx="50%" cy="35%" r="12%" fill="white"/>
+                        <rect x="25%" y="52%" width="50%" height="5%" fill="white" rx="2"/>
+                        <rect x="30%" y="60%" width="40%" height="5%" fill="white" rx="2"/>
+                        <rect x="35%" y="70%" width="30%" height="8%" fill="#667eea" rx="4"/>
+                        <text x="50%" y="90%" text-anchor="middle" fill="white" font-size="24" font-weight="bold">Landing Page</text>
+                    </svg>
+                    <div class="carousel-info">
+                        <h4>Landing Page</h4>
+                        <p>High-converting single-page sites designed to capture leads and drive specific actions.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-nav">
+                <button onclick="scrollCarousel(-1)">← Previous</button>
+                <button onclick="scrollCarousel(1)">Next →</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Website Features Section -->
+    <section id="features">
+        <h2 class="section-title">Powerful Features We Integrate</h2>
+        <p style="text-align: center; color: #666; max-width: 800px; margin: 0 auto 3rem; font-size: 1.1rem;">
+            Every website we build comes equipped with professional-grade features to help your business succeed online.
+        </p>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">🔍</div>
+                <h3>SEO Optimization</h3>
+                <p>Get found on Google and other search engines with comprehensive SEO features built into every website.</p>
+                <ul class="feature-list">
+                    <li>Meta tags & descriptions</li>
+                    <li>Schema markup</li>
+                    <li>XML sitemaps</li>
+                    <li>Mobile-friendly design</li>
+                    <li>Fast loading speeds</li>
+                </ul>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📊</div>
+                <h3>Analytics & Insights</h3>
+                <p>Track visitor behavior and understand your audience with powerful analytics integration.</p>
+                <ul class="feature-list">
+                    <li>Google Analytics setup</li>
+                    <li>Conversion tracking</li>
+                    <li>User behavior analysis</li>
+                    <li>Traffic sources reporting</li>
+                    <li>Custom dashboard</li>
+                </ul>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">💬</div>
+                <h3>Messaging & Chat</h3>
+                <p>Connect with customers in real-time and never miss an opportunity to engage.</p>
+                <ul class="feature-list">
+                    <li>Live chat integration</li>
+                    <li>Contact forms</li>
+                    <li>Email notifications</li>
+                    <li>Chatbot automation</li>
+                    <li>WhatsApp integration</li>
+                </ul>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🔒</div>
+                <h3>Security & SSL</h3>
+                <p>Keep your site and customer data safe with enterprise-level security features.</p>
+                <ul class="feature-list">
+                    <li>SSL certificates</li>
+                    <li>Regular backups</li>
+                    <li>Malware protection</li>
+                    <li>Firewall setup</li>
+                    <li>Security monitoring</li>
+                </ul>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📱</div>
+                <h3>Mobile Responsive</h3>
+                <p>Your website looks perfect on every device, from smartphones to large desktop screens.</p>
+                <ul class="feature-list">
+                    <li>Mobile-first design</li>
+                    <li>Touch-friendly interface</li>
+                    <li>Adaptive layouts</li>
+                    <li>Fast mobile loading</li>
+                    <li>Cross-browser compatible</li>
+                </ul>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">✉️</div>
+                <h3>Email Marketing</h3>
+                <p>Build your audience and drive sales with integrated email marketing tools.</p>
+                <ul class="feature-list">
+                    <li>Newsletter signup forms</li>
+                    <li>Mailchimp integration</li>
+                    <li>Automated campaigns</li>
+                    <li>Subscriber management</li>
+                    <li>Email templates</li>
+                </ul>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🛒</div>
+                <h3>E-Commerce Ready</h3>
+                <p>Sell products or services online with full e-commerce functionality.</p>
+                <ul class="feature-list">
+                    <li>Shopping cart system</li>
+                    <li>Payment gateway integration</li>
+                    <li>Inventory management</li>
+                    <li>Order tracking</li>
+                    <li>Product catalogs</li>
+                </ul>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🎨</div>
+                <h3>Content Management</h3>
+                <p>Update your website easily without technical knowledge using an intuitive CMS.</p>
+                <ul class="feature-list">
+                    <li>Easy content editing</li>
+                    <li>Media library</li>
+                    <li>Blog management</li>
+                    <li>Page builder tools</li>
+                    <li>User permissions</li>
+                </ul>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📲</div>
+                <h3>Social Media Integration</h3>
+                <p>Connect all your social channels and amplify your online presence.</p>
+                <ul class="feature-list">
+                    <li>Social sharing buttons</li>
+                    <li>Instagram feeds</li>
+                    <li>Facebook pixel</li>
+                    <li>Social login</li>
+                    <li>Auto-post to social</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Form -->
+    <section id="contact">
+    <h2 class="section-title">Let's Build Your Website</h2>
+  
+    <form 
+        action="https://formsubmit.co/yasaslokuge1438@gmail.com" 
+        method="POST" 
+        class="contact-form" 
+        id="contactForm"
+    >
+        <!-- Hidden field for FormSubmit's required anti-spam honeypot -->
+        <input type="hidden" name="_honeypot" value="true">
+
+        <!-- Optional: Hidden field to redirect users to a "Thank You" page after submission -->
+        <!-- <input type="hidden" name="_next" value="https://yourdomain.co/thankyou.html"> -->
+
+        <div class="form-group">
+            <label for="name">Your Name *</label>
+            <input type="text" id="name" name="name" required>
+        </div>
+        <div class="form-group">
+            <label for="email">Email Address *</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+        <div class="form-group">
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" name="phone">
+        </div>
+        <div class="form-group">
+            <label for="websiteType">What type of website do you need? *</label>
+            <select id="websiteType" name="Website Type" required>
+                <option value="">Select a type</option>
+                <option value="E-Commerce Store">E-Commerce Store</option>
+                <option value="Portfolio Website">Portfolio Website</option>
+                <option value="Business Website">Business Website</option>
+                <option value="Blog/Magazine">Blog/Magazine</option>
+                <option value="Landing Page">Landing Page</option>
+                <option value="Custom Solution">Custom Solution</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="budget">Budget Range</label>
+            <select id="budget" name="Budget Range">
+                <option value="">Select budget</option>
+                <option value="Under $500">Under $500</option>
+                <option value="$500 - $1000">$500 - $1000</option>
+                <option value="$1000 - $2500">$1000 - $2500</option>
+                <option value="Over $2000">Over $2000</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="message">Tell us about your project *</label>
+            <textarea id="message" name="Project Details" required placeholder="Describe your vision, goals, and any specific features you need..."></textarea>
+        </div>
+        <button type="submit" class="submit-btn">Send Message</button>
+    </form>
+</section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>WebStudio NZ</h3>
+                <p>Creating exceptional digital experiences that drive results and inspire action.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#mission">Mission</a></li>
+                    <li><a href="#portfolio">Portfolio</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Info</h3>
+                <ul>
+                    <li>Email: sitehelpnz@gmail.com</li>
+                    <li>Phone: +64 22 555 8494</li>
+                    <li>Address: Auckland, New Zealand</li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Follow Us</h3>
+                <div class="social-links">
+                    <a href="#" aria-label="Facebook">f</a>
+                    <a href="#" aria-label="Twitter">t</a>
+                    <a href="#" aria-label="Instagram">i</a>
+                    <a href="#" aria-label="LinkedIn">in</a>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2025 WebStudio NZ. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Modal -->
+    <div class="modal" id="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal()">&times;</span>
+            <img id="modalImg" src="" alt="Zoomed view">
+        </div>
+    </div>
+
+    <script>
+        // Animated Background with Bouncing Dots
+        const canvas = document.getElementById('bgCanvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const dots = [];
+        const numDots = 50;
+        const colors = [
+            { r: 255, g: 0, b: 0 },    // Red
+            { r: 255, g: 255, b: 0 },  // Yellow
+            { r: 0, g: 255, b: 0 },    // Green
+            { r: 0, g: 150, b: 255 }   // Blue
+        ];
+
+        class Dot {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.vx = (Math.random() - 0.5) * 0.8;
+                this.vy = (Math.random() - 0.5) * 0.8;
+                this.radius = 3;
+                this.color = colors[Math.floor(Math.random() * colors.length)];
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = `rgb(${this.color.r}, ${this.color.g}, ${this.color.b})`;
+                ctx.fill();
+            }
+
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+
+                if (this.x < 0 || this.x > canvas.width) {
+                    this.vx *= -1;
+                }
+                if (this.y < 0 || this.y > canvas.height) {
+                    this.vy *= -1;
+                }
+
+                for (let dot of dots) {
+                    if (dot !== this) {
+                        const dx = this.x - dot.x;
+                        const dy = this.y - dot.y;
+                        const dist = Math.sqrt(dx * dx + dy * dy);
+
+                        if (dist < this.radius + dot.radius) {
+                            this.vx *= -1;
+                            this.vy *= -1;
+                        }
+                    }
+                }
+            }
+        }
+
+        for (let i = 0; i < numDots; i++) {
+            dots.push(new Dot());
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            for (let dot of dots) {
+                dot.update();
+                dot.draw();
+            }
+
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        // Mobile Navigation
+        const burger = document.querySelector('.burger');
+        const navLinks = document.querySelector('.nav-links');
+
+        burger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Close menu when clicking a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // Carousel
+        const carousel = document.getElementById('carousel');
+        
+        function scrollCarousel(direction) {
+            const scrollAmount = 320;
+            carousel.scrollBy({
+                left: direction * scrollAmount,
+                behavior: 'smooth'
+            });
+        }
+
+        // Modal functionality
+        const modal = document.getElementById('modal');
+        const modalImg = document.getElementById('modalImg');
+        const carouselItems = document.querySelectorAll('.carousel-item');
+
+        carouselItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const svg = item.querySelector('svg');
+                const svgData = new XMLSerializer().serializeToString(svg);
+                const svgBlob = new Blob([svgData], {type: 'image/svg+xml;charset=utf-8'});
+                const url = URL.createObjectURL(svgBlob);
+                
+                modalImg.src = url;
+                modal.style.display = 'flex';
+            });
+        });
+
+        function closeModal() {
+            modal.style.display = 'none';
+        }
+
+        // Close modal when clicking outside
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+
+        // Form submission
+        const contactForm = document.getElementById('contactForm');
+        
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const formData = new FormData(contactForm);
+            const data = {};
+            formData.forEach((value, key) => {
+                data[key] = value;
+            });
+
+            // Create email body
+            const emailBody = `
+Name: ${data.name}
+Email: ${data.email}
+Phone: ${data.phone || 'Not provided'}
+Website Type: ${data.websiteType}
+Budget: ${data.budget || 'Not specified'}
+
+Message:
+${data.message}
+            `;
+
+            // Create mailto link
+            const mailtoLink = `mailto:hello@webcraft.com?subject=New Website Inquiry from ${encodeURIComponent(data.name)}&body=${encodeURIComponent(emailBody)}`;
+            
+            // Open email client
+            window.location.href = mailtoLink;
+            
+            // Show success message
+            alert('Thank you! Your message has been prepared. Please send the email from your email client.');
+            
+            // Reset form
+            contactForm.reset();
+        });
+
+        // Smooth scroll for all anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Intersection Observer for fade-in animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all cards and sections
+        document.querySelectorAll('.card, .carousel-item').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
